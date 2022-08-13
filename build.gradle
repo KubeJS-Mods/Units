@@ -1,0 +1,72 @@
+plugins {
+	id 'java'
+	id 'maven-publish'
+}
+
+var ENV = System.getenv()
+
+group 'dev.latvian.apps'
+version = "${app_version}-build.${ENV.GITHUB_RUN_NUMBER ?: 9999}"
+archivesBaseName = 'units'
+
+compileJava {
+	options.encoding = "UTF-8"
+	options.release.set(17)
+}
+
+java {
+	sourceCompatibility = targetCompatibility = '17'
+	withSourcesJar()
+}
+
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+repositories {
+	mavenCentral()
+
+	maven {
+		url 'https://oss.sonatype.org/content/repositories/snapshots'
+	}
+}
+
+dependencies {
+	implementation('org.jetbrains:annotations:23.0.0')
+
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
+}
+
+test {
+	useJUnitPlatform()
+}
+
+processResources {
+	inputs.property "version", project.version
+
+	filesMatching("build.json") {
+		expand "version": project.version
+	}
+}
+
+publishing {
+	publications {
+		mavenFabric(MavenPublication) {
+			// artifactId = "${rootProject.archives_base_name}-${project.name}"
+			from components.java
+		}
+	}
+
+	repositories {
+		if (ENV.SAPS_TOKEN) {
+			maven {
+				url "https://maven.saps.dev/minecraft"
+				credentials {
+					username = "latvian"
+					password = "${ENV.SAPS_TOKEN}"
+				}
+			}
+		}
+	}
+}
