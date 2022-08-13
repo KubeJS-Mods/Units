@@ -9,7 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("unused")
-public class UnitTests {
+public class MiscTests {
 	public static UnitContext CONTEXT = UnitContext.DEFAULT.sub();
 	public static VariableSet VARIABLE_SET = new VariableSet();
 	public static final double $test = 3.5D * Math.random();
