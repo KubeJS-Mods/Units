@@ -12,6 +12,6 @@ public class TanFuncUnit extends Func1Unit {
 
 	@Override
 	public double get(UnitVariables variables) {
-		return Math.tan(a.get(variables));
+		return Math.tan(Math.toRadians(a.get(variables)));
 	}
 }

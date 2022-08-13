@@ -213,4 +213,14 @@ public final class FixedNumberUnit extends Unit {
 	public Unit smoothstep() {
 		return of(value * value * value * (value * (value * 6D - 15D) + 10D));
 	}
+
+	@Override
+	public Unit trunc() {
+		return of((long) value);
+	}
+
+	@Override
+	public Unit exp() {
+		return of(Math.exp(value));
+	}
 }

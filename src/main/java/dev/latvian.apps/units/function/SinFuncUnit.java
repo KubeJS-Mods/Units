@@ -12,6 +12,6 @@ public class SinFuncUnit extends Func1Unit {
 
 	@Override
 	public double get(UnitVariables variables) {
-		return Math.sin(a.get(variables));
+		return Math.sin(Math.toRadians(a.get(variables)));
 	}
 }

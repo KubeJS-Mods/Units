@@ -8,6 +8,7 @@ import dev.latvian.apps.units.function.CeilFuncUnit;
 import dev.latvian.apps.units.function.ClampFuncUnit;
 import dev.latvian.apps.units.function.CosFuncUnit;
 import dev.latvian.apps.units.function.DegFuncUnit;
+import dev.latvian.apps.units.function.ExpFuncUnit;
 import dev.latvian.apps.units.function.FloorFuncUnit;
 import dev.latvian.apps.units.function.LerpFuncUnit;
 import dev.latvian.apps.units.function.Log10FuncUnit;
@@ -21,6 +22,7 @@ import dev.latvian.apps.units.function.SmoothstepFuncUnit;
 import dev.latvian.apps.units.function.SqFuncUnit;
 import dev.latvian.apps.units.function.SqrtFuncUnit;
 import dev.latvian.apps.units.function.TanFuncUnit;
+import dev.latvian.apps.units.function.TruncFuncUnit;
 import dev.latvian.apps.units.function.WithAlphaFuncUnit;
 import dev.latvian.apps.units.operator.BitNotOpUnit;
 import dev.latvian.apps.units.operator.BoolNotOpUnit;
@@ -306,5 +308,13 @@ public abstract class Unit {
 
 	public Unit modSet(Unit unit) {
 		return new SetUnit(UnitSymbol.MOD_SET, this, mod(unit));
+	}
+
+	public Unit trunc() {
+		return new TruncFuncUnit(this);
+	}
+
+	public Unit exp() {
+		return new ExpFuncUnit(this);
 	}
 }

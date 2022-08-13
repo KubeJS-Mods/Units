@@ -12,6 +12,6 @@ public class CosFuncUnit extends Func1Unit {
 
 	@Override
 	public double get(UnitVariables variables) {
-		return Math.cos(a.get(variables));
+		return Math.cos(Math.toRadians(a.get(variables)));
 	}
 }

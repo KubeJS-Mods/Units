@@ -7,7 +7,9 @@ import dev.latvian.apps.units.function.BoolFuncUnit;
 import dev.latvian.apps.units.function.CeilFuncUnit;
 import dev.latvian.apps.units.function.ClampFuncUnit;
 import dev.latvian.apps.units.function.CosFuncUnit;
+import dev.latvian.apps.units.function.CosRadFuncUnit;
 import dev.latvian.apps.units.function.DegFuncUnit;
+import dev.latvian.apps.units.function.ExpFuncUnit;
 import dev.latvian.apps.units.function.FloorFuncUnit;
 import dev.latvian.apps.units.function.FunctionFactory;
 import dev.latvian.apps.units.function.HsvFuncUnit;
@@ -18,16 +20,22 @@ import dev.latvian.apps.units.function.LogFuncUnit;
 import dev.latvian.apps.units.function.MapFuncUnit;
 import dev.latvian.apps.units.function.MaxFuncUnit;
 import dev.latvian.apps.units.function.MinFuncUnit;
+import dev.latvian.apps.units.function.ModFuncUnit;
+import dev.latvian.apps.units.function.PowFuncUnit;
 import dev.latvian.apps.units.function.RadFuncUnit;
 import dev.latvian.apps.units.function.RandomUnit;
 import dev.latvian.apps.units.function.RgbFuncUnit;
+import dev.latvian.apps.units.function.RoundFuncUnit;
 import dev.latvian.apps.units.function.RoundedTimeUnit;
 import dev.latvian.apps.units.function.SinFuncUnit;
+import dev.latvian.apps.units.function.SinRadFuncUnit;
 import dev.latvian.apps.units.function.SmoothstepFuncUnit;
 import dev.latvian.apps.units.function.SqFuncUnit;
 import dev.latvian.apps.units.function.SqrtFuncUnit;
 import dev.latvian.apps.units.function.TanFuncUnit;
+import dev.latvian.apps.units.function.TanRadFuncUnit;
 import dev.latvian.apps.units.function.TimeUnit;
+import dev.latvian.apps.units.function.TruncFuncUnit;
 import dev.latvian.apps.units.function.WithAlphaFuncUnit;
 import dev.latvian.apps.units.token.UnitTokenStream;
 import org.jetbrains.annotations.Nullable;
@@ -53,6 +61,9 @@ public class UnitContext {
 		DEFAULT.addFunction(SinFuncUnit.FACTORY);
 		DEFAULT.addFunction(CosFuncUnit.FACTORY);
 		DEFAULT.addFunction(TanFuncUnit.FACTORY);
+		DEFAULT.addFunction(SinRadFuncUnit.FACTORY);
+		DEFAULT.addFunction(CosRadFuncUnit.FACTORY);
+		DEFAULT.addFunction(TanRadFuncUnit.FACTORY);
 		DEFAULT.addFunction(DegFuncUnit.FACTORY);
 		DEFAULT.addFunction(RadFuncUnit.FACTORY);
 		DEFAULT.addFunction(AtanFuncUnit.FACTORY);
@@ -62,6 +73,7 @@ public class UnitContext {
 		DEFAULT.addFunction(Log1pFuncUnit.FACTORY);
 		DEFAULT.addFunction(SqrtFuncUnit.FACTORY);
 		DEFAULT.addFunction(SqFuncUnit.FACTORY);
+		DEFAULT.addFunction(PowFuncUnit.FACTORY);
 		DEFAULT.addFunction(FloorFuncUnit.FACTORY);
 		DEFAULT.addFunction(CeilFuncUnit.FACTORY);
 		DEFAULT.addFunction(BoolFuncUnit.FACTORY);
@@ -71,6 +83,10 @@ public class UnitContext {
 		DEFAULT.addFunction(HsvFuncUnit.FACTORY);
 		DEFAULT.addFunction(WithAlphaFuncUnit.FACTORY);
 		DEFAULT.addFunction(MapFuncUnit.FACTORY);
+		DEFAULT.addFunction(RoundFuncUnit.FACTORY);
+		DEFAULT.addFunction(TruncFuncUnit.FACTORY);
+		DEFAULT.addFunction(ModFuncUnit.FACTORY);
+		DEFAULT.addFunction(ExpFuncUnit.FACTORY);
 
 		DEFAULT.addConstant("true", FixedBooleanUnit.TRUE);
 		DEFAULT.addConstant("false", FixedBooleanUnit.FALSE);
@@ -78,6 +94,9 @@ public class UnitContext {
 		DEFAULT.addConstant("TWO_PI", FixedNumberUnit.TWO_PI);
 		DEFAULT.addConstant("HALF_PI", FixedNumberUnit.HALF_PI);
 		DEFAULT.addConstant("E", FixedNumberUnit.E);
+
+		// MoLang compat
+		DEFAULT.addConstant("math.pi", FixedNumberUnit.PI);
 	}
 
 	private final Map<String, FunctionFactory> functions = new HashMap<>();
@@ -93,7 +112,8 @@ public class UnitContext {
 	public FunctionFactory getFunctionFactory(String name) {
 		var f = functions.get(name);
 
-		if (f == null && name.startsWith("math.")) {
+		// MoLang compat
+		if (f == null && name.toLowerCase().startsWith("math.")) {
 			return functions.get(name.substring(5));
 		}
 
