@@ -17,6 +17,7 @@ import dev.latvian.apps.units.function.LogFuncUnit;
 import dev.latvian.apps.units.function.MaxFuncUnit;
 import dev.latvian.apps.units.function.MinFuncUnit;
 import dev.latvian.apps.units.function.RadFuncUnit;
+import dev.latvian.apps.units.function.RoundFuncUnit;
 import dev.latvian.apps.units.function.SinFuncUnit;
 import dev.latvian.apps.units.function.SmoothstepFuncUnit;
 import dev.latvian.apps.units.function.SqFuncUnit;
@@ -316,5 +317,9 @@ public abstract class Unit {
 
 	public Unit exp() {
 		return new ExpFuncUnit(this);
+	}
+
+	public Unit round() {
+		return new RoundFuncUnit(this);
 	}
 }

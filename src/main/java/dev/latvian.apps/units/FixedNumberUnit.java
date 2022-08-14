@@ -223,4 +223,9 @@ public final class FixedNumberUnit extends Unit {
 	public Unit exp() {
 		return of(Math.exp(value));
 	}
+
+	@Override
+	public Unit round() {
+		return of(Math.round(value));
+	}
 }
